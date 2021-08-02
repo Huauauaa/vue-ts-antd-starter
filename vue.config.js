@@ -16,6 +16,8 @@ function addStyleResource(rule) {
 }
 
 module.exports = {
+  publicPath:
+    process.env.NODE_ENV === 'production' ? '/vue-ts-antd-starter/' : '/',
   chainWebpack: (config) => {
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
     types.forEach((type) =>

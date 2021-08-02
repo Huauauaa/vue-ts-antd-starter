@@ -16,3 +16,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="less" scoped>
+.home {
+  font-size: @size;
+  color: @error-color;
+}
+</style>

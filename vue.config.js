@@ -1,14 +1,29 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+const webpack = require('webpack');
+const LodashWebpackPlugin = require('lodash-webpack-plugin');
 const packageConfig = require('./package.json');
 
-const { vue } = packageConfig.dependencies;
+const {
+  vue,
+  vuex,
+  'vue-router': vueRouter,
+  'ant-design-vue': antd,
+} = packageConfig.dependencies;
 
 const isProduction = process.env.NODE_ENV === 'production';
 const getVersion = (dep) => dep.match(/\d.*?$/)[0];
 
 const cdns = [
   `https://cdn.jsdelivr.net/npm/vue@${getVersion(vue)}/dist/vue.min.js`,
+  `https://cdn.jsdelivr.net/npm/vuex@${getVersion(vuex)}/dist/vuex.min.js`,
+  `https://cdn.jsdelivr.net/npm/vue-router@${getVersion(
+    vueRouter,
+  )}/dist/vue-router.min.js`,
+  `https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.js`,
+  `https://cdn.jsdelivr.net/npm/ant-design-vue@${getVersion(
+    antd,
+  )}/dist/antd.min.js`,
 ];
 
 function configHTML(args) {
@@ -42,8 +57,15 @@ module.exports = {
     if (isProduction) {
       config.externals = {
         vue: 'Vue',
+        vuex: 'Vuex',
+        'vue-router': 'VueRouter',
+        'ant-design-vue': 'antd',
       };
     }
+    config.plugins.push(
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
+      new LodashWebpackPlugin(),
+    );
   },
   publicPath:
     process.env.NODE_ENV === 'production' ? '/vue-ts-antd-starter/' : '/',
@@ -60,7 +82,7 @@ module.exports = {
       less: {
         javascriptEnabled: true,
         modifyVars: {
-          'primary-color': '#1DA57A',
+          'primary-color': '#ea5c7d',
           'link-color': '#1DA57A',
           'border-radius-base': '2px',
         },

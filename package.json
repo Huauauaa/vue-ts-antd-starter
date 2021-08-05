@@ -11,6 +11,7 @@
   "dependencies": {
     "ant-design-vue": "^1.7.6",
     "core-js": "^3.6.5",
+    "lodash-webpack-plugin": "^0.11.6",
     "style-resources-loader": "^1.4.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
